@@ -30,7 +30,7 @@ void seven_seg_init() {
 }
 
 
-void seven_seg_display(int *cnt) {
+void seven_seg_display(const int *cnt) {
     int value = bits[*cnt];
     for (int i = 0; i < 7; i++) {
         int gpio = FIRST_GPIO + i;
@@ -40,9 +40,10 @@ void seven_seg_display(int *cnt) {
 }
 
 
+
 int main() {
     int cnt = 0;
-    int last_btn = 1; // Initialize to 1 (button not pressed)
+    int last_btn = 1;
     stdio_init_all();
 
     gpio_init(BTN_PIN_G);
@@ -52,7 +53,7 @@ int main() {
     seven_seg_init();
     seven_seg_display(&cnt);
 
-    
+
     while (true) {
         int btn = gpio_get(BTN_PIN_G);
         if (last_btn && !btn) { // Detect falling edge (press)
